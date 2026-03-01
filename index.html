@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Richard Selvaraj — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg: #0b0f14;
+        --card: #131a22;
+        --muted: #9fb0c3;
+        --text: #e6eef6;
+        --accent: #4fd1c5;
+        --accent-2: #8ab4ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(
+            1000px 600px at 80% -10%,
+            rgba(79, 209, 197, 0.08),
+            transparent
+          ),
+          radial-gradient(
+            900px 500px at 10% 10%,
+            rgba(138, 180, 255, 0.08),
+            transparent
+          ),
+          var(--bg);
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      /* --- Layout --- */
+      .container {
+        width: min(1150px, calc(100% - 2rem));
+        margin-inline: auto;
+      }
+      header.nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        backdrop-filter: saturate(1.2) blur(8px);
+        background: linear-gradient(
+          180deg,
+          rgba(11, 15, 20, 0.85),
+          rgba(11, 15, 20, 0.55) 60%,
+          transparent
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.85rem 0;
+      }
+      .brand {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+      }
+      .brand .spark {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: conic-gradient(from 200deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 18px var(--accent);
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+      }
+      .nav-links a {
+        opacity: 0.85;
+      }
+      .nav-links a:hover {
+        opacity: 1;
+      }
+
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 0.4rem;
+        background: none;
+        border: none;
+        z-index: 60;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--text);
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      @media (max-width: 720px) {
+        .hamburger { display: flex; }
+        .nav-links {
+          position: fixed;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(11, 15, 20, 0.97);
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+          font-size: 1.2rem;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s;
+          z-index: 55;
+        }
+        .nav-links.open {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      .btn {
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 0.6rem 0.9rem;
+        border-radius: 999px;
+        transition: 0.25s transform, 0.25s background, 0.25s box-shadow;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .btn.accent {
+        border: none;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #0b0f14;
+        font-weight: 700;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        position: relative;
+        padding-top: 120px;
+        padding-bottom: 100px;
+      }
+      @media (max-width: 720px) {
+        .hero { padding-top: 90px; padding-bottom: 60px; }
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 2rem;
+        align-items: center;
+      }
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+
+      .kicker {
+        color: var(--muted);
+        letter-spacing: 0.15rem;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+      }
+      h1.title {
+        font-size: clamp(2rem, 5vw, 3.6rem);
+        line-height: 1.05;
+        margin: 0 0 1rem;
+        font-weight: 800;
+      }
+      .subtitle {
+        color: var(--muted);
+        font-size: 1.05rem;
+        max-width: 55ch;
+      }
+      .cta-row {
+        display: flex;
+        gap: 0.8rem;
+        margin-top: 1.3rem;
+        flex-wrap: wrap;
+      }
+
+      /* --- Hero card --- */
+      .hero-card {
+        background: radial-gradient(
+            900px 400px at 10% -50%,
+            rgba(138, 180, 255, 0.12),
+            transparent
+          ),
+          var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 1.2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      @media (max-width: 400px) {
+        .hero-stats { grid-template-columns: 1fr; }
+      }
+      .stat {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 1rem;
+        border-radius: 16px;
+      }
+      .stat b {
+        font-size: 1.4rem;
+      }
+
+      /* --- Sections --- */
+      section {
+        padding: 80px 0;
+      }
+      @media (max-width: 720px) {
+        section { padding: 50px 0; }
+      }
+      .section-title {
+        font-size: clamp(1.4rem, 3.4vw, 2.2rem);
+        margin: 0 0 0.75rem;
+        font-weight: 800;
+      }
+      .section-sub {
+        color: var(--muted);
+        margin: 0 0 1.6rem;
+      }
+
+      /* --- Skills tags --- */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .tag {
+        padding: 0.4rem 0.65rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      /* --- Projects --- */
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+      @media (max-width: 1000px) {
+        .projects {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 620px) {
+        .projects {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        overflow: hidden;
+        transition: 0.35s transform, 0.35s box-shadow, 0.35s border-color;
+        position: relative;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 40px rgba(0, 0, 0, 0.35);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      .thumb {
+        aspect-ratio: 16/9;
+        background: #0f141b;
+        position: relative;
+        overflow: hidden;
+        display: block;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.05) contrast(1.05);
+      }
+      .pill {
+        position: absolute;
+        inset: auto auto 12px 12px;
+        background: rgba(11, 15, 20, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 0.35rem 0.6rem;
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+      .content {
+        padding: 1rem 1rem 1.1rem;
+      }
+      .content h3 {
+        margin: 0.2rem 0 0.4rem;
+        font-size: 1.15rem;
+      }
+      .content p {
+        margin: 0;
+        color: #cbd6e2;
+      }
+      .card-actions {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0 1rem 1rem;
+      }
+
+      .filter-row {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+      @media (max-width: 720px) {
+        .filter-row {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 0.5rem;
+          scrollbar-width: none;
+        }
+        .filter-row::-webkit-scrollbar { display: none; }
+        .filter-btn { white-space: nowrap; flex-shrink: 0; }
+      }
+      .filter-btn {
+        padding: 0.45rem 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 10px;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.94rem;
+        background: transparent;
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+
+      /* --- Contact --- */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 0.6fr 1.4fr;
+        gap: 1.2rem;
+      }
+      @media (max-width: 900px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+      .contact-card {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 1.2rem;
+      }
+      .contact-card label {
+        display: block;
+        margin-bottom: 0.3rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .contact-card input,
+      .contact-card textarea {
+        width: 100%;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        padding: 0.65rem 0.85rem;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.95rem;
+        margin-bottom: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .contact-card input:focus,
+      .contact-card textarea:focus {
+        border-color: var(--accent);
+      }
+      .row {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        margin: 0.35rem 0;
+      }
+      .row i {
+        opacity: 0.8;
+      }
+
+      /* --- Footer --- */
+      footer {
+        padding: 28px 0;
+        color: var(--muted);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      /* --- Reveal on scroll --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* --- Canvas particle backdrop --- */
+      #stars {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars"></canvas>
+    <header class="nav">
+      <div class="container nav-inner">
+        <a href="#top" class="brand"
+          ><span class="spark"></span> Richard Selvaraj</a
+        >
+        <nav class="nav-links" id="navLinks">
+          <a href="#projects" onclick="closeMenu()">Projects</a>
+          <a href="#skills" onclick="closeMenu()">Skills</a>
+          <a href="#contact" onclick="closeMenu()">Contact</a>
+          <a
+            class="btn"
+            href="https://github.com/boomshineking?tab=repositories"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-brands fa-github"></i> GitHub</a
+          >
+          <a
+            class="btn accent"
+            href="https://www.linkedin.com/in/richard-selvaraj-ab6bba217/"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-brands fa-linkedin"></i> LinkedIn</a
+          >
+        </nav>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- Hero -->
+      <section class="hero container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">Data & Analytics</div>
+            <h1 class="title">
+              Hi, I’m
+              <span
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                  );
+                  -webkit-background-clip: text;
+                  background-clip: text;
+                  color: transparent;
+                "
+                >Richard Selvaraj</span
+              >
+            </h1>
+            <p class="subtitle">
+              A coding enthusiast with hands-on experience in following MLOPs workflow specialising in  <b>AI/ML</b>,
+              <b>Data based Tableau / Power BI</b>, and
+              <b>Python</b>. Below are selected projects spanning ML, LLMs/NLP,
+              data cleaning, BI dashboards, cloud deployments, and exploratory
+              analysis.
+            </p>
+            <div class="cta-row">
+              <a class="btn accent" href="#projects"
+                ><i class="fa-solid fa-arrow-down"></i> View Projects</a
+              >
+              <a class="btn" href="/cdn-cgi/l/email-protection#89fbe0eae1e8fbedbebbbfbeb9bdb0b0c9eee4e8e0e5a7eae6e4"><i class="fa-regular fa-envelope"></i> Email Me</a
+              >
+            </div>
+          </div>
+          <aside class="hero-card reveal">
+            <div class="hero-stats">
+              <div class="stat">
+                <div style="color: var(--muted); font-size: 0.86rem">
+                  Primary Stack
+                </div>
+                <b>MLOPS · Python</b>
+                <div class="tags" style="margin-top: 0.6rem">
+                  <span class="tag">langraph</span
+                  ><span class="tag">langchain</span
+                  ><span class="tag">Quantization</span>
+                </div>
+              </div>
+              <div class="stat">
+                <div style="color: var(--muted); font-size: 0.86rem">
+                  Interests
+                </div>
+                <b>ML · LLM · MLOps</b>
+                <div class="tags" style="margin-top: 0.6rem">
+                  <span class="tag">ETL</span><span class="tag">Dashboards</span
+                  ><span class="tag">Cloud</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills" class="container reveal">
+        <h2 class="section-title">Skills & Tools</h2>
+        <p class="section-sub">
+          Comfortable across data prep, modelling, LLMs, deployment, and
+          storytelling.
+        </p>
+        <div class="tags">
+          <span class="tag">SQL Server</span>
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">LLM</span>
+          <span class="tag">CNN</span>
+          <span class="tag">MLOps</span>
+          <span class="tag">GCP</span>
+          <span class="tag">Azure</span>
+          <span class="tag">AWS</span>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-sub">Spanning ML, AI, NLP, cloud deployments, and data analysis.</p>
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="ml">ML</button>
+          <button class="filter-btn" data-filter="ai">AI</button>
+          <button class="filter-btn" data-filter="nlp">NLP</button>
+          <button class="filter-btn" data-filter="cloud">Cloud</button>
+          <button class="filter-btn" data-filter="etl">Data Analysis / ETL</button>
+          <button class="filter-btn" data-filter="llm">LLM</button>
+          <button class="filter-btn" data-filter="sql">SQL</button>
+          <button class="filter-btn" data-filter="bi">BI / Viz</button>
+          <button class="filter-btn" data-filter="py">Python</button>
+          <button class="filter-btn" data-filter="viz">Viz</button>
+          <button class="filter-btn" data-filter="quant">Quantization</button>
+          <button class="filter-btn" data-filter="r">R</button>
+        </div>
+
+        <div class="projects" id="projectGrid">
+          <!-- Advanced RAG -->
+          <article class="card reveal" data-tags="ai nlp llm py">
+            <a
+              class="thumb"
+              href="https://github.com/Richard-Selvaraj-99/Advanced_RAG"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop"
+                alt="Advanced RAG pipeline"
+              />
+              <span class="pill">RAG · LLM · Vector DB</span>
+            </a>
+            <div class="content">
+              <h3>Advanced RAG Pipeline</h3>
+              <p>
+                Advanced Retrieval-Augmented Generation system with optimised
+                chunking, re-ranking, and context-aware retrieval strategies.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/Richard-Selvaraj-99/Advanced_RAG"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Agentic AI CI/CD HuggingFace -->
+          <article class="card reveal" data-tags="ai llm cloud py">
+            <a
+              class="thumb"
+              href="https://github.com/Richard-Selvaraj-99/Agentic_AI_with_github_CI-CD_and_Huggingface_deployment"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&auto=format&fit=crop"
+                alt="Agentic AI CI/CD Hugging Face deployment"
+              />
+              <span class="pill">Agentic AI · CI/CD · HuggingFace</span>
+            </a>
+            <div class="content">
+              <h3>Agentic AI — CI/CD & HuggingFace Deployment</h3>
+              <p>
+                End-to-end agentic AI system with automated GitHub Actions
+                CI/CD pipeline and production deployment on HuggingFace Spaces.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/Richard-Selvaraj-99/Agentic_AI_with_github_CI-CD_and_Huggingface_deployment"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- LLaMA2 Blog Generator -->
+          <article class="card reveal" data-tags="ai nlp llm py">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/llama2-blog-generator"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/prompt.jpeg"
+                alt="Prompt-engineered blog generator"
+              />
+              <span class="pill">LLaMA · Prompting</span>
+            </a>
+            <div class="content">
+              <h3>Prompt-Engineered Blog Generator</h3>
+              <p>
+                Generates blogs for common users, researchers, and data
+                scientists with tailored prompts.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/llama2-blog-generator"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+          <!-- QLoRA chatbot -->
+          <article class="card reveal" data-tags="ai nlp llm py quant">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Bible_Qlora_Model"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/qlora.jpeg" alt="QLoRA fine-tuning project" />
+              <span class="pill">QLoRA · PEFT</span>
+            </a>
+            <div class="content">
+              <h3>QLoRA Chatbot Model</h3>
+              <p>
+                Finetuned LLaMA-3.1-8B-Instruct with Bits-and-Bytes quantization
+                for efficient training.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Bible_Qlora_Model"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- QLoRA chatbot -->
+          <article class="card reveal" data-tags="ai nlp llm py quant">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/A-B-testing-of-QLORA-model"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/qlora.jpeg" alt="A/B testing" />
+              <span class="pill">QLoRA · PEFT</span>
+            </a>
+            <div class="content">
+              <h3>A/B testing of Qlora Model</h3>
+              <p>
+                Comparison of full precision and 4 bit precision of Finetuned
+                LLaMA-3.1-8B-Instruct with Bits-and-Bytes quantization for
+                efficient training.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/A-B-testing-of-QLORA-model"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Text Summarization (NLP) -->
+          <article class="card reveal" data-tags="nlp cloud py">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Text-Summarization-NLP-Project"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/tsm.jpeg" alt="Text summarization project" />
+              <span class="pill">Summarization · CI/CD</span>
+            </a>
+            <div class="content">
+              <h3>End-to-End Text Summarization</h3>
+              <p>
+                Deep-learning summarizer with CI/CD using GitHub Actions and AWS
+                (EC2/ECR).
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Text-Summarization-NLP-Project"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- BERT Comment Rater -->
+          <article class="card reveal" data-tags="nlp py">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Bert-Comment-Rater"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/sentir.jpeg" alt="BERT comment rater" />
+              <span class="pill">BERT · Streamlit</span>
+            </a>
+            <div class="content">
+              <h3>Sentiment — BERT Comment Rater</h3>
+              <p>
+                Rates pasted/typed comments using a BERT classifier; Streamlit
+                app version included.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Bert-Comment-Rater"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Azure ML Deployment (Jaipur AQI) -->
+          <article class="card reveal" data-tags="cloud">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Azure-ML-Deployment/tree/main"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/jaipur.jpeg"
+                alt="Azure ML deployment Jaipur air quality"
+              />
+              <span class="pill">Azure · CI/CD</span>
+            </a>
+            <div class="content">
+              <h3>Azure ML: Jaipur Air Quality</h3>
+              <p>
+                End-to-end ML pipeline with GitHub Actions, data cleansing,
+                feature engineering, and monitoring.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Azure-ML-Deployment/tree/main"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Machine learning in R (Iris) -->
+          <article class="card reveal" data-tags="ml r">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Machine-learning-in-R"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/flower.jpeg" alt="Iris ML in R" />
+              <span class="pill">R · Classification</span>
+            </a>
+            <div class="content">
+              <h3>Iris Species — ML in R</h3>
+              <p>
+                Built and compared multiple models to identify potential new
+                iris species from a classic dataset.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Machine-learning-in-R"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Survey Breakdown (Power BI) -->
+          <article class="card reveal" data-tags="etl bi viz">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Survey-Breakdown"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/power.jpeg" alt="Power BI dashboard" />
+              <span class="pill">Power BI</span>
+            </a>
+            <div class="content">
+              <h3>Survey Breakdown — Data Pros</h3>
+              <p>
+                Interactive dashboard exploring demographics and preferences of
+                data professionals.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Survey-Breakdown"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- ETL to Power BI (GCP) -->
+          <article class="card reveal" data-tags="etl cloud sql bi viz">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/ETL_Pipelining_using_Google"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/pbi.jpeg" alt="ETL pipeline to Power BI" />
+              <span class="pill">ETL · GCP</span>
+            </a>
+            <div class="content">
+              <h3>ETL Pipeline (NYC Taxi) → Power BI</h3>
+              <p>
+                Extracted with Python, stored on GCP, transformed in BigQuery,
+                visualised in Power BI.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/ETL_Pipelining_using_Google"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Predictive analysis for Diabetes -->
+          <article class="card reveal" data-tags="ml py">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Predictive-analysis-for-diabetes"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/diabetes.jpeg" alt="Diabetes prediction" />
+              <span class="pill">ML · EDA</span>
+            </a>
+            <div class="content">
+              <h3>Predictive Analysis for Diabetes</h3>
+              <p>
+                Cleaned, transformed, and visualised the dataset; compared
+                models to select the best predictor.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Predictive-analysis-for-diabetes"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- SQL Data Cleaning -->
+          <article class="card reveal" data-tags="etl sql">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/SQL-DATA-CLEANING"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/housing.jpeg" alt="SQL housing data cleaning" />
+              <span class="pill">T-SQL</span>
+            </a>
+            <div class="content">
+              <h3>Data Cleaning in SQL</h3>
+              <p>
+                Transformed raw housing data in SQL Server to a clean,
+                analysis-ready dataset.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/SQL-DATA-CLEANING"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- CNN using MLflow + Gradio -->
+          <article class="card reveal" data-tags="ai py">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/CNN-using-mlflow-for-model-comparison-"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/cnn.jpeg" alt="CNN MLflow Gradio" />
+              <span class="pill">CNN · MLflow</span>
+            </a>
+            <div class="content">
+              <h3>CNN with MLflow & Gradio</h3>
+              <p>
+                Image recognition pipeline with experiment tracking and a simple
+                Gradio UI.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/CNN-using-mlflow-for-model-comparison-"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- COVID Analysis (SQL + Tableau) -->
+          <article class="card reveal" data-tags="etl sql viz">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Analysis-and-Visualization-of-Covid--19-using-SQL-and-Tableu"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/covid.jpeg"
+                alt="Covid analysis and Tableau viz"
+              />
+              <span class="pill">SQL · Tableau</span>
+            </a>
+            <div class="content">
+              <h3>COVID-19: SQL & Tableau</h3>
+              <p>
+                SQL-based ETL and Tableau visualisation of key lockdown metrics
+                and trends.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Analysis-and-Visualization-of-Covid--19-using-SQL-and-Tableu"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+
+          <!-- Correlation of data patterns (Python) -->
+          <article class="card reveal" data-tags="etl py">
+            <a
+              class="thumb"
+              href="https://github.com/boomshineking/Correlation-of-data-patterns-using-python"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/movie.jpeg" alt="Movie revenue correlation" />
+              <span class="pill">EDA · PCA</span>
+            </a>
+            <div class="content">
+              <h3>Correlation of Data Patterns</h3>
+              <p>
+                Explored drivers of movie gross revenue with correlation
+                analysis and PCA.
+              </p>
+            </div>
+            <div class="card-actions">
+              <a
+                class="btn"
+                href="https://github.com/boomshineking/Correlation-of-data-patterns-using-python"
+                target="_blank"
+                rel="noopener"
+                ><i class="fa-brands fa-github"></i> Repository</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="container reveal">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-sub">
+          Based in India — open to collaboration and AI/ML roles.
+        </p>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="row">
+              <i class="fa-solid fa-location-dot"></i> Madurai, India
+            </div>
+            <div class="row">
+              <i class="fa-regular fa-envelope"></i>
+              <a href="/cdn-cgi/l/email-protection#9deff4fef5fceff9aaafabaaada9a4a4b3fef2f0"><span class="__cf_email__" data-cfemail="483a212b20293a2c7f7a7e7f787c7171082f25292124662b2725">[email&#160;protected]</span></a>
+            </div>
+            <div class="row">
+              <i class="fa-solid fa-phone"></i>
+              <a href="tel:+919944171049">+919944171049</a>
+            </div>
+            <div class="row">
+              <i class="fa-brands fa-linkedin"></i>
+              <a
+                target="_blank"
+                rel="noopener"
+                href="https://www.linkedin.com/in/richard-stepehenraj-ab6bba217/"
+                >LinkedIn</a
+              >
+            </div>
+            <div class="row">
+              <i class="fa-brands fa-github"></i>
+              <a
+                target="_blank"
+                rel="noopener"
+                href="https://github.com/Richard-Selvaraj-99"
+                >GitHub</a
+              >
+            </div>
+          </div>
+          <div class="contact-card">
+            <form
+              id="msgForm"
+              class="reveal"
+              onsubmit="return sendMessage(event);"
+            >
+              <label for="name">Your Name</label>
+              <input id="name" name="name" required placeholder="Jane Doe" />
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+              />
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                placeholder="Hi Richard, I’d love to connect about…"
+              ></textarea>
+              <button
+                class="btn accent"
+                type="submit"
+                style="width: 100%; justify-content: center; margin-top: 0.6rem"
+              >
+                <i class="fa-regular fa-paper-plane"></i> Send
+              </button>
+              <p
+                id="formNote"
+                class="section-sub"
+                style="margin: 0.8rem 0 0; display: none"
+              >
+                Thanks! This demo shows a toast and opens your mail client with
+                a pre-filled email to Richard.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        © <span id="year"></span> Richard Selvaraj — Design & build with HTML ·
+        CSS · JS
+      </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+      // Hamburger menu
+      function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        const btn = document.getElementById('hamburger');
+        nav.classList.toggle('open');
+        btn.classList.toggle('open');
+      }
+      function closeMenu() {
+        document.getElementById('navLinks').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('open');
+      }
+
+      // Dynamic year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // IntersectionObserver reveal
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.05 }
+      );
+      document
+        .querySelectorAll(".reveal, section.container")
+        .forEach((el) => io.observe(el));
+
+      // Projects filter
+      const buttons = document.querySelectorAll(".filter-btn");
+      const cards = document.querySelectorAll(".card");
+      buttons.forEach((btn) =>
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const f = btn.dataset.filter;
+          cards.forEach((c) => {
+            const tags = c.dataset.tags || "";
+            const list = tags.split(" ").filter(Boolean);
+            const show = f === "all" || list.includes(f);
+            c.style.display = show ? "" : "none";
+            if (show) c.classList.add("visible");
+          });
+        })
+      );
+
+      // Contact form demo: open mailto and animated toast
+      function sendMessage(e) {
+        e.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const msg = document.getElementById("message").value.trim();
+        const body = encodeURIComponent(
+          `From: ${name} <${email}>%0D%0A%0D%0A${msg}`
+        );
+        const mailto = `mailto:richard72670499@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(
+          name
+        )}&body=${body}`;
+        document.getElementById("formNote").style.display = "block";
+        window.location.href = mailto;
+        return false;
+      }
+
+      // Minimal starfield / particle background
+      const canvas = document.getElementById("stars");
+      const ctx = canvas.getContext("2d");
+      let w, h, stars;
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        makeStars();
+      }
+      window.addEventListener("resize", resize);
+      function makeStars() {
+        const count = Math.min(220, Math.floor((w * h) / 9000));
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 0.7 + 0.3,
+          vx: (Math.random() - 0.5) * 0.08,
+          vy: (Math.random() - 0.5) * 0.08,
+        }));
+      }
+      function tick() {
+        ctx.clearRect(0, 0, w, h);
+        for (const s of stars) {
+          s.x += s.vx;
+          s.y += s.vy;
+          if (s.x < 0) s.x = w;
+          if (s.x > w) s.x = 0;
+          if (s.y < 0) s.y = h;
+          if (s.y > h) s.y = 0;
+          ctx.globalAlpha = s.z;
+          ctx.fillStyle = "#8ab4ff";
+          ctx.fillRect(s.x, s.y, 1.2, 1.2);
+        }
+        requestAnimationFrame(tick);
+      }
+      resize();
+      tick();
+
+      // Subtle mouse parallax on hero card (desktop only)
+      const parallax = document.querySelector(".hero-card");
+      const isTouchDevice = window.matchMedia("(hover: none)").matches;
+      if (parallax && !isTouchDevice) {
+        parallax.addEventListener("mousemove", (e) => {
+          const r = parallax.getBoundingClientRect();
+          const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+          const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+          parallax.style.transform = `perspective(800px) rotateY(${dx * 6}deg) rotateX(${-dy * 6}deg)`;
+        });
+        parallax.addEventListener("mouseleave", () => {
+          parallax.style.transform = "";
+        });
+      }
+    </script>
+  </body>
+</html>
